@@ -14,9 +14,10 @@ function getTrans(queryArray,successFun){
     var to = 'zh';
     var str1 = appid + query + salt +key;
     var sign = MD5(str1);
-               
+       
+       //chrome 安全策略静止HTTP 和 https 混用，因为是托管在github上，说以将api改为https        
     $.ajax({
-        url: 'http://api.fanyi.baidu.com/api/trans/vip/translate',
+        url: 'https://fanyi-api.baidu.com/api/trans/vip/translate',
         type: 'get',
         dataType: 'jsonp',
         data: {
