@@ -13,7 +13,7 @@
 
 
 
-<script src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="jQuery.min.js"></script>
 <script src="./md5.js"></script>
 <script src="./getTrans.js"></script>
 
@@ -34,6 +34,7 @@ $("#submit").click(function(){
     /*
     我是现在getTrans 函数中发现我需要一个成功后执行的函数，而且这个函数应该是什么参数都已经确定，才在上面定义了这个函数。
     好像明白回调函数、要求的参数是为什么了。。。。。
+    入了参数要求，回调函数和getTrans函数一点都不耦合！！！！
     */
 
     getTrans(qurryArray,sucessFun);
