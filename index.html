@@ -1,0 +1,44 @@
+<!doctype html>
+<head>
+    <meta charset="utf-8"/>
+</head>
+<body>
+
+<input type="" name="" id="willTrans" value="">
+
+<button id="submit">submit</button>
+
+<input type="text" name="" id="showTransResult">
+
+
+
+
+<script src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="./md5.js"></script>
+<script src="./getTrans.js"></script>
+
+<script type="text/javascript">
+
+
+
+$("#submit").click(function(){
+
+    var qurryArray = document.getElementById("willTrans").value
+    // 多个query可以用\n连接  如 query='apple\norange\nbanana\npear'
+
+    //trans_result is array of translate result
+    function sucessFun(trans_result){
+        document.getElementById("showTransResult").value = trans_result[0].dst
+    }
+
+    /*
+    我是现在getTrans 函数中发现我需要一个成功后执行的函数，而且这个函数应该是什么参数都已经确定，才在上面定义了这个函数。
+    好像明白回调函数、要求的参数是为什么了。。。。。
+    */
+
+    getTrans(qurryArray,sucessFun);
+ 
+});
+
+</script>
+</body>
