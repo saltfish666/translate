@@ -1,34 +1,73 @@
 <!doctype html>
 <head>
     <meta charset="utf-8"/>
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
 </head>
 <body>
 
 <input type="" name="" id="willTrans" value="">
 
-<button id="submit">submit</button>
+<button id="submitTrans">submit</button>
 
-<input type="text" name="" id="showTransResult">
+<input type="" name="" id="showTransResult">
+
+<!-- it next release -->
+<!-- <table id="transResult">
+    <tr>
+        <td>单词</td>
+        <td>解释</td>
+        <td>状态</td>
+        <td>操作</td>
+    </tr>
+    <tr>
+        <td>apple</td>
+        <td>苹果</td>
+        <td>已掌握</td>
+        <td><button>change to know</button><button>change to learn</button></td>
+    </tr>
+    <tr>
+        <td>compiton</td>
+        <td>竞赛</td>
+        <td>学习中</td>
+        <td><button>change to know</button><button>change to learn</button></td>
+    </tr>
+</table> -->
 
 
-
-
-<script src="./jQuery.min.js"></script>
-<script src="./md5.js"></script>
-<script src="./getTrans.js"></script>
+<script src="./js/static/jQuery.min.js"></script>
+<script src="./js/static/md5.js">
+    //function MD5(str) 
+    //将字符串MD5加密，返回加密后字符串
+</script>
+<script src="./js/getTrans.js">
+    /*
+    function getTrans(qurryArray,sucessFun)
+    异步查询qurry中的单词，并调用sucessFun函数
+    */
+</script>
+<script src="./js/getVocabulariesFromText.js">
+    /*
+    function getVocabulariesFromText(text)  return Vocabularies array
+    */
+</script>
 
 <script type="text/javascript">
 
+$("#submitTrans").click(function(){
 
+    var text = document.getElementById("willTrans").value
 
-$("#submit").click(function(){
+    var vocabulariesArray = getVocabulariesFromText(text)
 
-    var qurryArray = document.getElementById("willTrans").value
+    var qurryArray = vocabulariesArray.toString()
+
+    //var qurryArray = document.getElementById("willTrans").value
     // 多个query可以用\n连接  如 query='apple\norange\nbanana\npear'
 
-    //trans_result is array of translate result
+    //trans_result is array of translate result：[{src: "hi", dst: "你好"}]
     function sucessFun(trans_result){
         document.getElementById("showTransResult").value = trans_result[0].dst
+        console.log(trans_result)
     }
 
     /*
