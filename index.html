@@ -9,10 +9,10 @@
 
 <button id="submitTrans">submit</button>
 
-<input type="" name="" id="showTransResult">
+<!-- <input type="" name="" id="showTransResult"> -->
 
 <!-- it next release -->
-<!-- <table id="transResult">
+<table id="transResult">
     <tr>
         <td>单词</td>
         <td>解释</td>
@@ -31,7 +31,7 @@
         <td>学习中</td>
         <td><button>change to know</button><button>change to learn</button></td>
     </tr>
-</table> -->
+</table>
 
 
 <script src="./js/static/jQuery.min.js"></script>
@@ -55,19 +55,32 @@
 
 $("#submitTrans").click(function(){
 
+    console.log("submitTrans has been click")
+
     var text = document.getElementById("willTrans").value
 
     var vocabulariesArray = getVocabulariesFromText(text)
 
-    var qurryArray = vocabulariesArray.toString()
+    var qurryArray = vocabulariesArray.toString().replace(/,/g,"!")
+    //["that","demands","attention"] => "that,demands,attention" => "that!demands!attention"
+    //间接的达到同时查询多个单词的效果
 
     //var qurryArray = document.getElementById("willTrans").value
     // 多个query可以用\n连接  如 query='apple\norange\nbanana\npear'
 
-    //trans_result is array of translate result：[{src: "hi", dst: "你好"}]
+    //trans_result is dict-like object such as {"hi":"你好","apple":"苹果"}
     function sucessFun(trans_result){
-        document.getElementById("showTransResult").value = trans_result[0].dst
-        console.log(trans_result)
+        var transResultTable = document.getElementById("transResult")
+        for(key in trans_result){
+            let child = document.createElement("tr")
+
+                child.innerHTML = `<td>${key}</td>\
+                        <td>${trans_result[key]}</td>\
+                        <td>已掌握</td>\
+                        <td><button>change to know</button><button>change to learn</button></td>
+                `
+            transResultTable.appendChild(child)
+        }
     }
 
     /*
