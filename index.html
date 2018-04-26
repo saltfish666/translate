@@ -16,10 +16,10 @@
     <tr>
         <td>单词</td>
         <td>解释</td>
-        <td>状态</td>
+        <!-- <td>状态</td> -->
         <td>操作</td>
     </tr>
-    <tr>
+ <!--    <tr>
         <td>apple</td>
         <td>苹果</td>
         <td>已掌握</td>
@@ -30,7 +30,7 @@
         <td>竞赛</td>
         <td>学习中</td>
         <td><button>change to know</button><button>change to learn</button></td>
-    </tr>
+    </tr> -->
 </table>
 
 
@@ -72,13 +72,11 @@ $("#submitTrans").click(function(){
     function sucessFun(trans_result){
         var transResultTable = document.getElementById("transResult")
         for(key in trans_result){
-            let child = document.createElement("tr")
 
+            let child = document.createElement("tr")
                 child.innerHTML = `<td>${key}</td>\
                         <td>${trans_result[key]}</td>\
-                        <td>已掌握</td>\
-                        <td><button>change to know</button><button>change to learn</button></td>
-                `
+                        <td><button>change to know</button><button>change to learn</button></td>`
             transResultTable.appendChild(child)
         }
     }
