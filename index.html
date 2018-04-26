@@ -5,32 +5,27 @@
 </head>
 <body>
 
+<!-- 输入文本框 -->
 <input type="" name="" id="willTrans" value="">
 
+<!-- 提交数据 -->
 <button id="submitTrans">submit</button>
 
-<!-- <input type="" name="" id="showTransResult"> -->
-
-<!-- it next release -->
+<!-- 显示结果 -->
 <table id="transResult">
     <tr>
         <td>单词</td>
         <td>解释</td>
-        <!-- <td>状态</td> -->
         <td>操作</td>
     </tr>
-    <tr>
-        <td>apple</td>
-        <td>苹果</td>
-     <!--    <td>已掌握</td> -->
-        <td><button>change to know</button><button>change to learn</button></td>
-    </tr>
+
+    <!-- js动态生成的子节点示意图 -->
+    <!-- 
     <tr>
         <td>compiton</td>
         <td>竞赛</td>
-        <!-- <td>学习中</td> -->
         <td><button onClick="changeToList('compiton','竞赛','know')">change to know</button><button onClick="changeToList('compiton','竞赛','learn')">change to learn</button></td>
-    </tr>
+    </tr> -->
 </table>
 
 
@@ -55,21 +50,24 @@
 
 $("#submitTrans").click(function(){
 
+    //获得输入文本框的值
     var text = document.getElementById("willTrans").value
 
-    if(text == "") return
-
+    //获得文本中出现英语的英语单词的数组
     var vocabulariesArray = getVocabulariesFromText(text)
+
+    //如果没有单词，就中止函数
+    if(vocabulariesArray == []) return
 
     var qurryArray = vocabulariesArray.toString().replace(/,/g,"!")
     //["that","demands","attention"] => "that,demands,attention" => "that!demands!attention"
-    //间接的达到同时查询多个单词的效果
+    //百度API不支持单个HTTP请求查询多个单词，就把多个单词整合成以"!"分割的句子。间接的达到同时查询多个单词的效果
 
-    //var qurryArray = document.getElementById("willTrans").value
-    // 多个query可以用\n连接  如 query='apple\norange\nbanana\npear'
 
     //trans_result is dict-like object such as {"hi":"你好","apple":"苹果"}
+    //完成查询请求后的回调函数，将查询结果渲染到DOM节点中
     function sucessFun(trans_result){
+
         var transResultTable = document.getElementById("transResult")
         for(key in trans_result){
 
@@ -81,20 +79,15 @@ $("#submitTrans").click(function(){
         }
     }
 
-    /*
-    我是现在getTrans 函数中发现我需要一个成功后执行的函数，而且这个函数应该是什么参数都已经确定，才在上面定义了这个函数。
-    好像明白回调函数、要求的参数是为什么了。。。。。
-    入了参数要求，回调函数和getTrans函数一点都不耦合！！！！
-    */
-
     getTrans(qurryArray,sucessFun);
  
 });
 
 function changeToList(voc,mean,state){
-    //localStorage[voc]={"mean":mean,"state":state}  localStorage 只能存储字符串而不是对象？？？？？
+    //localStorage[voc]={"mean":mean,"state":state}  
+    //localStorage 只能存储字符串而不是对象？？？？？
     localStorage[voc]=[mean,state]
-    console.log(localStorage)
+
 }
 </script>
 </body>
