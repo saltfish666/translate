@@ -16,20 +16,20 @@
     <tr>
         <td>单词</td>
         <td>解释</td>
-        <td>状态</td>
+        <!-- <td>状态</td> -->
         <td>操作</td>
     </tr>
     <tr>
         <td>apple</td>
         <td>苹果</td>
-        <td>已掌握</td>
+     <!--    <td>已掌握</td> -->
         <td><button>change to know</button><button>change to learn</button></td>
     </tr>
     <tr>
         <td>compiton</td>
         <td>竞赛</td>
-        <td>学习中</td>
-        <td><button>change to know</button><button>change to learn</button></td>
+        <!-- <td>学习中</td> -->
+        <td><button onClick="changeToList('compiton','竞赛','know')">change to know</button><button onClick="changeToList('compiton','竞赛','learn')">change to learn</button></td>
     </tr>
 </table>
 
@@ -55,9 +55,9 @@
 
 $("#submitTrans").click(function(){
 
-    console.log("submitTrans has been click")
-
     var text = document.getElementById("willTrans").value
+
+    if(text == "") return
 
     var vocabulariesArray = getVocabulariesFromText(text)
 
@@ -72,13 +72,11 @@ $("#submitTrans").click(function(){
     function sucessFun(trans_result){
         var transResultTable = document.getElementById("transResult")
         for(key in trans_result){
-            let child = document.createElement("tr")
 
+            let child = document.createElement("tr")
                 child.innerHTML = `<td>${key}</td>\
                         <td>${trans_result[key]}</td>\
-                        <td>已掌握</td>\
-                        <td><button>change to know</button><button>change to learn</button></td>
-                `
+                        <td><button onClick="changeToList('${key}','${trans_result[key]}','know')">change to know</button><button onClick="changeToList('${key}','${trans_result[key]}','learn')">change to learn</button></td>`
             transResultTable.appendChild(child)
         }
     }
@@ -93,5 +91,10 @@ $("#submitTrans").click(function(){
  
 });
 
+function changeToList(voc,mean,state){
+    //localStorage[voc]={"mean":mean,"state":state}  localStorage 只能存储字符串而不是对象？？？？？
+    localStorage[voc]=[mean,state]
+    console.log(localStorage)
+}
 </script>
 </body>
